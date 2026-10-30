@@ -7,11 +7,12 @@
     <link rel="icon" type="image/x-icon" href="https://gstatic.com">
     <style>
         :root {
-            --bg-dark: #0f0f12;
-            --card-dark: #16161c;
-            --accent: #ffb703;
+            --bg-dark: #0b0c10;
+            --card-dark: #1f2833;
+            --accent: #461111; /* Dark burgundy highlight */
+            --y8-red: #c5a059; /* Classic Arcade Gold tint */
             --text: #ffffff;
-            --muted: #8d99ae;
+            --muted: #c5c6c7;
         }
 
         body {
@@ -24,23 +25,22 @@
         }
 
         header {
-            width: 100%; background: var(--card-dark);
+            width: 100%; background: #151a21;
             padding: 25px 0; text-align: center;
-            border-bottom: 1px solid #23232e;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border-bottom: 2px solid #c5a059;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
         }
 
-        header h1 { margin: 0; font-size: 2rem; color: var(--accent); }
-        header p { margin: 5px 0 0; color: var(--muted); font-size: 0.9rem; }
+        header h1 { margin: 0; font-size: 2.2rem; color: #fff; text-shadow: 2px 2px #000; }
+        header p { margin: 5px 0 0; color: #c5a059; font-size: 0.95rem; font-weight: bold; }
 
         .search-wrapper { margin: 30px 0; width: 90%; max-width: 600px; }
         .search-input {
             width: 100%; padding: 15px 25px;
-            background: var(--card-dark); border: 2px solid #23232e;
-            border-radius: 50px; color: var(--text); font-size: 1rem;
-            outline: none; box-sizing: border-box; transition: 0.3s;
+            background: #1f2833; border: 2px solid #c5a059;
+            border-radius: 8px; color: var(--text); font-size: 1rem;
+            outline: none; box-sizing: border-box;
         }
-        .search-input:focus { border-color: var(--accent); box-shadow: 0 0 10px rgba(255,183,3,0.2); }
 
         .grid {
             display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -48,22 +48,22 @@
         }
 
         .card {
-            background: var(--card-dark); border: 1px solid #23232e;
-            border-radius: 12px; overflow: hidden; cursor: pointer;
+            background: var(--card-dark); border: 1px solid #2f3e46;
+            border-radius: 8px; overflow: hidden; cursor: pointer;
             transition: transform 0.2s, border-color 0.2s; text-align: center;
-            padding-bottom: 15px;
+            padding-bottom: 12px;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent); }
+        .card:hover { transform: translateY(-3px); border-color: #c5a059; }
 
         .icon-box {
             width: 100%; height: 110px;
-            background: linear-gradient(135deg, #1d1d26, #0f0f12);
+            background: linear-gradient(135deg, #111, #1f2833);
             display: flex; align-items: center; justify-content: center;
-            font-size: 2.5rem; border-bottom: 1px solid #23232e;
+            font-size: 2.8rem; border-bottom: 1px solid #2f3e46;
         }
 
-        .title { margin: 12px 10px 3px; font-size: 1rem; font-weight: 600; }
-        .tag { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
+        .title { margin: 12px 10px 3px; font-size: 1.05rem; font-weight: 600; }
+        .tag { font-size: 0.75rem; color: #c5a059; text-transform: uppercase; font-weight: bold; }
 
         .modal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -75,14 +75,13 @@
             justify-content: space-between; margin-bottom: 10px;
         }
         .btn {
-            background: #e63946; color: white; border: none;
+            background: #cc2936; color: white; border: none;
             padding: 8px 16px; border-radius: 4px; font-weight: bold; cursor: pointer;
         }
-        .btn-blue { background: var(--accent); color: #000; }
+        .btn-gold { background: #c5a059; color: #000; }
         .frame-container {
             width: 90%; max-width: 1000px; height: 80vh;
             background: #000; border-radius: 8px; overflow: hidden;
-            box-shadow: 0 0 30px rgba(0,0,0,0.7);
         }
         iframe { width: 100%; height: 100%; border: none; }
     </style>
@@ -90,40 +89,48 @@
 <body>
 
     <header>
-        <h1>DuckMath Mirror Portal</h1>
-        <p>Resource Directory & Assets</p>
+        <h1>Y8 Legacy Archive</h1>
+        <p>Decentralized Content Distribution System</p>
     </header>
 
     <div class="search-wrapper">
-        <input type="text" id="search" class="search-input" placeholder="Quick filter modules...">
+        <input type="text" id="search" class="search-input" placeholder="Search unblocked archive...">
     </div>
 
     <div class="grid" id="grid">
-        <!-- Unlocked & Framing-Friendly Game Links -->
-        <div class="card" data-name="slope" onclick="launch('https://gitallgames.github.io/projects/slope/index.html')">
-            <div class="icon-box">🟢</div><div class="title">Slope</div><div class="tag">Skill</div>
-        </div>
-
-        <div class="card" data-name="retro bowl" onclick="launch('https://retro-bowl-75.github.io/')">
-            <div class="icon-box">🏈</div><div class="title">Retro Bowl</div><div class="tag">Sports</div>
+        <!-- Y8 Official Embed Frameworks -->
+        <div class="card" data-name="slope" onclick="launch('https://y8.com/embed/slope')">
+            <div class="icon-box">🟢</div><div class="title">Slope Official</div><div class="tag">Y8 Engine</div>
         </div>
         
-        <div class="card" data-name="cookie clicker" onclick="launch('https://cookieclicker-unblocked-online.github.io/')">
-            <div class="icon-box">🍪</div><div class="title">Cookie Clicker</div><div class="tag">Idle</div>
+        <div class="card" data-name="crazy long runner" onclick="launch('https://y8.com/embed/crazy_long_runner_3d')">
+            <div class="icon-box">🏃</div><div class="title">Long Runner 3D</div><div class="tag">Y8 Engine</div>
         </div>
 
-        <div class="card" data-name="run 3" onclick="launch('https://github.io')">
-            <div class="icon-box">🌌</div><div class="title">Run 3</div><div class="tag">Endless</div>
+        <div class="card" data-name="hero tower clash" onclick="launch('https://y8.com/embed/hero_tower_clash')">
+            <div class="icon-box">🏰</div><div class="title">Hero Tower</div><div class="tag">Y8 Strategy</div>
+        </div>
+
+        <div class="card" data-name="boxeden dynamic" onclick="launch('https://y8.com')">
+            <div class="icon-box">🔫</div><div class="title">Building Shooter</div><div class="tag">Y8 Action</div>
+        </div>
+
+        <div class="card" data-name="cyber cars punk racing" onclick="launch('https://y8.com')">
+            <div class="icon-box">🏎️</div><div class="title">Cyber Cars</div><div class="tag">Y8 Racing</div>
+        </div>
+
+        <div class="card" data-name="stickman destruction" onclick="launch('https://y8.com')">
+            <div class="icon-box">🧍</div><div class="title">Stickman Physics</div><div class="tag">Y8 Ragdoll</div>
         </div>
     </div>
 
     <div id="modal" class="modal">
         <div class="modal-bar">
-            <button class="btn btn-blue" onclick="fullscreen()">Fullscreen</button>
-            <button class="btn" onclick="kill()">Close Frame</button>
+            <button class="btn btn-gold" onclick="fullscreen()">Fullscreen View</button>
+            <button class="btn" onclick="kill()">Terminate Connection</button>
         </div>
         <div class="frame-container">
-            <iframe id="box" src="" allowfullscreen></iframe>
+            <iframe id="box" src="" scrolling="no" allowfullscreen></iframe>
         </div>
     </div>
 
