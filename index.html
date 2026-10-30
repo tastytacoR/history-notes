@@ -3,36 +3,254 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Resources</title>
+    <title>Math Resources Portal</title>
     <style>
-        body { font-family: Arial, sans-serif; background: #222; color: #fff; text-align: center; margin: 0; padding: 20px; }
-        .game-container { margin: 40px auto; max-width: 800px; background: #333; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-        iframe { border: none; width: 100%; height: 600px; background: #000; border-radius: 4px; }
-        .nav-links { margin: 20px; padding: 10px; background: #111; border-radius: 5px; display: inline-block; }
-        a { color: #4af; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 1.1em; }
-        a:hover { color: #8cf; text-decoration: underline; }
+        /* Modern Dark Theme */
+        :root {
+            --bg-primary: #121214;
+            --bg-secondary: #1a1a1e;
+            --accent-color: #ffb703; /* Duck yellow accent */
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Navbar & Header styling */
+        header {
+            width: 100%;
+            background-color: var(--bg-secondary);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            border-bottom: 2px solid #2a2a32;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.2rem;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Search Bar Setup (Just like DuckMath) */
+        .search-container {
+            margin: 30px 0;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 14px 20px;
+            background-color: var(--bg-secondary);
+            border: 2px solid #2a2a32;
+            border-radius: 30px;
+            color: var(--text-main);
+            font-size: 1rem;
+            outline: none;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 8px rgba(255, 183, 3, 0.3);
+        }
+
+        /* Responsive Grid for Games */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px;
+            width: 90%;
+            max-width: 1100px;
+            padding-bottom: 50px;
+        }
+
+        /* Individual Game Cards */
+        .game-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid #2a2a32;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+            text-align: center;
+            padding-bottom: 15px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        /* Thumbnail Placeholder Box */
+        .thumbnail {
+            width: 100%;
+            height: 130px;
+            background: linear-gradient(135deg, #2b2d42, #11121a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            border-bottom: 1px solid #2a2a32;
+        }
+
+        .game-title {
+            margin: 12px 10px 5px 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .game-category {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Modal Player Window (Opens over the screen cleanly) */
+        .player-modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            position: relative;
+            width: 85%;
+            max-width: 950px;
+            height: 80vh;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--accent-color);
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: -45px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+        }
     </style>
 </head>
 <body>
 
-    <h1>Study Guide Portal</h1>
-    
-    <div class="nav-links">
-        <a href="#game1">Module Alpha (Slope)</a>
-        <a href="#game2">Module Beta (1v1.lol)</a>
+    <header>
+        <h1>DuckMath Mirror Portal</h1>
+        <p>Curated Interactive Educational Simulations</p>
+    </header>
+
+    <!-- Interactive Filter Searchbar -->
+    <div class="search-container">
+        <input type="text" id="search" class="search-bar" placeholder="Search games...">
     </div>
 
-    <!-- Game Section 1: Slope -->
-    <div class="game-container" id="game1">
-        <h3>Simulation Alpha (Slope)</h3>
-        <iframe src="https://pages.dev" allowfullscreen></iframe>
+    <!-- Main Game Selection Grid -->
+    <div class="grid-container" id="game-grid">
+        
+        <!-- Game 1 -->
+        <div class="game-card" data-title="retro bowl" onclick="openGame('https://github.io')">
+            <div class="thumbnail">🏈</div>
+            <div class="game-title">Retro Bowl</div>
+            <div class="game-category">Sports</div>
+        </div>
+
+        <!-- Game 2 -->
+        <div class="game-card" data-title="1v1.lol" onclick="openGame('https://1v1lol-gg.github.io/')">
+            <div class="thumbnail">🎯</div>
+            <div class="game-title">1v1.lol</div>
+            <div class="game-category">Action</div>
+        </div>
+
+        <!-- Game 3 -->
+        <div class="game-card" data-title="slope" onclick="openGame('https://pages.dev')">
+            <div class="thumbnail">🟢</div>
+            <div class="game-title">Slope</div>
+            <div class="game-category">Skill</div>
+        </div>
+
+        <!-- Game 4 -->
+        <div class="game-card" data-title="run 3" onclick="openGame('https://github.io')">
+            <div class="thumbnail">🌌</div>
+            <div class="game-title">Run 3</div>
+            <div class="game-category">Endless</div>
+        </div>
+
     </div>
 
-    <!-- Game Section 2: 1v1.lol -->
-    <div class="game-container" id="game2">
-        <h3>Simulation Beta (1v1.lol)</h3>
-        <iframe src="https://1v1lol-gg.github.io/" allowfullscreen></iframe>
+    <!-- The Popup Fullscreen Frame Container -->
+    <div id="playerModal" class="player-modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeGame()">&times; Close</button>
+            <iframe id="gameFrame" src="" allowfullscreen></iframe>
+        </div>
     </div>
 
+    <script>
+        // Real-time Search Engine matching user entry
+        document.getElementById('search').addEventListener('input', function(e) {
+            let filter = e.target.value.toLowerCase();
+            let cards = document.querySelectorAll('.game-card');
+            
+            cards.forEach(card => {
+                let title = card.getAttribute('data-title');
+                if(title.includes(filter)) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        });
+
+        // Frame Injectors
+        function openGame(url) {
+            document.getElementById('gameFrame').src = url;
+            document.getElementById('playerModal').style.display = "flex";
+        }
+
+        function closeGame() {
+            document.getElementById('playerModal').style.display = "none";
+            document.getElementById('gameFrame').src = ""; // Kills the game audio immediately when closed
+        }
+    </script>
 </body>
 </html>
