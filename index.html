@@ -72,7 +72,7 @@
         }
         .modal-bar {
             width: 90%; max-width: 1000px; display: flex;
-            justify-content: geopolitical; justify-content: space-between; margin-bottom: 10px;
+            justify-content: space-between; margin-bottom: 10px;
         }
         .btn {
             background: #e63946; color: white; border: none;
@@ -99,7 +99,11 @@
     </div>
 
     <div class="grid" id="grid">
-        <!-- Working Unlocked Game Cards -->
+        <!-- Unlocked & Framing-Friendly Game Links -->
+        <div class="card" data-name="slope" onclick="launch('https://gitallgames.github.io/projects/slope/index.html')">
+            <div class="icon-box">🟢</div><div class="title">Slope</div><div class="tag">Skill</div>
+        </div>
+
         <div class="card" data-name="retro bowl" onclick="launch('https://retro-bowl-75.github.io/')">
             <div class="icon-box">🏈</div><div class="title">Retro Bowl</div><div class="tag">Sports</div>
         </div>
@@ -129,10 +133,6 @@
             document.querySelectorAll('.card').forEach(card => {
                 card.style.display = card.getAttribute('data-name').includes(query) ? "block" : "none";
             });
-        });
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === "Escape") kill();
         });
 
         function launch(url) {
